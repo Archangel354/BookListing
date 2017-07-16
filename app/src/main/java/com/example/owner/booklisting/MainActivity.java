@@ -1,5 +1,6 @@
 package com.example.owner.booklisting;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Removes the circular loading indicator when it is not needed
-        removeLoadingIndicator();
+
 
         // Get the search string from the EditText when the Search button is clicked
         Button btnSearch = (Button) findViewById(R.id.btnSearch);
@@ -39,10 +39,14 @@ public class MainActivity extends AppCompatActivity {
                 // Build the complete URL string which will include the search string
                 urlString = buildURLString(BEGINNING_OF_URL, END_OF_URL);
                 Log.i("LOG","Inside onClickListener " + urlString);
+
+                Intent mIntent = new Intent(MainActivity.this, BookListActivity.class);
+                mIntent.putExtra("urlString", urlString);
+                startActivity(mIntent);
             }
         });
 
-        Log.i("LOG","the urlString is: " + urlString);
+        Log.i("LOG.MAIN","the urlString is: " + urlString);
 
 
 
@@ -52,19 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new BookListAdapter(this, new ArrayList<BookList>());
-
-
-
-
     }
 
-    // Removes the circular loading indicator when it is not needed
-    public void removeLoadingIndicator(){
-        // Remove the loading indicator
-        View loadingIndicator = findViewById(R.id.loading_indicator);
-        loadingIndicator.setVisibility(View.GONE);
-
-    }
 
     public String buildURLString(String beginningURL, String endURL){
         String searchString = "";
