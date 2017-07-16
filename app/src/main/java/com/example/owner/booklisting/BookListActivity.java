@@ -33,6 +33,8 @@ public class BookListActivity extends AppCompatActivity  implements LoaderManage
     /** TextView that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
 
+    private String urlString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class BookListActivity extends AppCompatActivity  implements LoaderManage
 
         // Recieves the url from the MainActivity via the Intent
         Intent mIntent = getIntent();
-        String urlString = mIntent.getExtras().getString("urlString");
+        urlString = mIntent.getExtras().getString("urlString");
         Log.i("LOG.BOOKLISTACTIVITY","The url is: " + urlString);
 
         // Find a reference to the {@link ListView} in the layout
@@ -98,16 +100,36 @@ public class BookListActivity extends AppCompatActivity  implements LoaderManage
 
     @Override
     public Loader<List<BookList>> onCreateLoader(int id, Bundle args) {
-        return null;
+        // Create a new loader for the given URL
+        return new BookListLoader(this, urlString);
     }
 
     @Override
-    public void onLoadFinished(Loader<List<BookList>> loader, List<BookList> data) {
+    public void onLoadFinished(Loader<List<BookList>> loader, List<BookList> books) {
+        // Hide loading indicator because the data has been loaded
+        View loadingIndicator = findViewById(R.id.loading_indicator);
+        loadingIndicator.setVisibility(View.GONE);
 
+        if (books == null || books.isEmpty()) {
+            // Set empty state text to display "No earthquakes found."
+            mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+
+            mEmptyStateTextView.setText(R.string.no_books);
+        }
+        // Clear the adapter of previous earthquake data
+        mAdapter.clear();
+
+        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if (books != null && !books.isEmpty()) {
+            mAdapter.addAll(books);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<List<BookList>> loader) {
 
+        // Loader reset, so we can clear out our existing data.
+        mAdapter.clear();
     }
 }

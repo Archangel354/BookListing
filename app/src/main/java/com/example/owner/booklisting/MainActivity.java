@@ -14,21 +14,14 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     // The URL for the books
-    private static final String USGS_REQUEST_URL =
-            "https://www.googleapis.com/books/v1/volumes?q=android&maxResults=1";
     public static final String BEGINNING_OF_URL = "https://www.googleapis.com/books/v1/volumes?q=";
     public static final String END_OF_URL = "&maxResults=3";
     public static String urlString = "";
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         // Get the search string from the EditText when the Search button is clicked
         Button btnSearch = (Button) findViewById(R.id.btnSearch);

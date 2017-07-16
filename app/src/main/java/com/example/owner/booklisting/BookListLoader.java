@@ -2,6 +2,7 @@ package com.example.owner.booklisting;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -25,7 +26,10 @@ public class BookListLoader extends AsyncTaskLoader<List<BookList>> {
             return null;
         }
 
-        return null;
+        // Perform the network request, parse the response, and extract a list of earthquakes.
+        List<BookList> books = Utils.fetchBookData(mUrl);
+        Log.i("LOG:BookListLoader.java","The array list books is: " + books);
+        return books;
     }
 
     @Override
