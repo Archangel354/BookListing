@@ -21,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public static String urlString = "";
 
 
-    /** Adapter for the list of earthquakes */
-    private BookListAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(mIntent);
             }
         });
-
-        Log.i("LOG.MAIN","the urlString is: " + urlString);
-
-
-
-
-        // Find a reference to the {@link ListView} in the layout
-        ListView bookListView = (ListView) findViewById(R.id.list);
-
-        // Create a new adapter that takes an empty list of earthquakes as input
-        mAdapter = new BookListAdapter(this, new ArrayList<BookList>());
     }
 
 
