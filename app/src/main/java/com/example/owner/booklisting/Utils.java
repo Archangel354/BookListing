@@ -144,14 +144,17 @@ public final class Utils {
             JSONArray featureArray = baseJsonResponse.getJSONArray("items");
 
             for (int i = 0;i < featureArray.length();i++){
-                Log.i("featureArray.length is: ", " length is" ,featureArray.length());
+                Log.i("LOG: freArray.len is: ","i "  + featureArray.length());
                 JSONObject currentBook = featureArray.getJSONObject(i);
-                JSONObject properties = currentBook.getJSONObject("items");
+                JSONObject properties = currentBook.getJSONObject("volumeInfo");
                 String title = properties.getString("title");
                 String authors = properties.getString("authors");
                 String publisher = properties.getString("publisher");
                 String publishedDate = properties.getString("publishedDate");
                 Log.i("LOG Inside Utils.java","title is " + title);
+                Log.i("LOG Inside Utils.java","authors is " + authors);
+                Log.i("LOG Inside Utils.java","publisher is " + publisher);
+                Log.i("LOG Inside Utils.java","publishedDate is " + publishedDate);
             }
 
         } catch (JSONException e) {
