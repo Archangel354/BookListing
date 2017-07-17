@@ -50,6 +50,7 @@ public final class Utils {
 
         // Extract relevant fields from the JSON response and create an {@link List} object
         List books = extractFeatureFromJson(jsonResponse);
+        Log.i("LOG Inside Utils.java","books is " + books);
 
         // Return the {@link List}
         return books;
@@ -136,7 +137,6 @@ public final class Utils {
     private static List extractFeatureFromJson(String booksJSON) {
         // If the JSON string is empty or null, then return early.
         if (TextUtils.isEmpty(booksJSON)) {
-
             return null;
         }
         try {
@@ -155,6 +155,9 @@ public final class Utils {
                 Log.i("LOG Inside Utils.java","authors is " + authors);
                 Log.i("LOG Inside Utils.java","publisher is " + publisher);
                 Log.i("LOG Inside Utils.java","publishedDate is " + publishedDate);
+
+                BookList mBookList = new BookList(title, authors, publisher, publishedDate);
+                books.add(mBookList);
             }
 
         } catch (JSONException e) {
