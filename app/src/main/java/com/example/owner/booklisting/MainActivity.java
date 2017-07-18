@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     // The URL for the books
     public static final String BEGINNING_OF_URL = "https://www.googleapis.com/books/v1/volumes?q=";
-    public static final String END_OF_URL = "&maxResults=3";
+    public static final String END_OF_URL = "&maxResults=4";
     public static String urlString = "";
 
     @Override

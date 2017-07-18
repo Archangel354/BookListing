@@ -50,7 +50,6 @@ public final class Utils {
 
         // Extract relevant fields from the JSON response and create an {@link List} object
         List books = extractFeatureFromJson(jsonResponse);
-        Log.i("LOG Inside Utils.java","books is " + books);
 
         // Return the {@link List}
         return books;
@@ -144,17 +143,12 @@ public final class Utils {
             JSONArray featureArray = baseJsonResponse.getJSONArray("items");
 
             for (int i = 0;i < featureArray.length();i++){
-                Log.i("LOG: freArray.len is: ","i "  + featureArray.length());
                 JSONObject currentBook = featureArray.getJSONObject(i);
                 JSONObject properties = currentBook.getJSONObject("volumeInfo");
                 String title = properties.getString("title");
                 String authors = properties.getString("authors");
                 String publisher = properties.getString("publisher");
                 String publishedDate = properties.getString("publishedDate");
-                Log.i("LOG Inside Utils.java","title is " + title);
-                Log.i("LOG Inside Utils.java","authors is " + authors);
-                Log.i("LOG Inside Utils.java","publisher is " + publisher);
-                Log.i("LOG Inside Utils.java","publishedDate is " + publishedDate);
 
                 BookList mBookList = new BookList(title, authors, publisher, publishedDate);
                 books.add(mBookList);

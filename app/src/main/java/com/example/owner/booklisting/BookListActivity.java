@@ -109,28 +109,25 @@ public class BookListActivity extends AppCompatActivity  implements LoaderManage
         // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
-        Log.i("LOG onLoadFinished","books is " + books);
         if (books == null || books.isEmpty()) {
             // Set empty state text to display "No earthquakes found."
             mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
 
             mEmptyStateTextView.setText(R.string.no_books);
         }
-        // Clear the adapter of previous earthquake data
+        // Clear the adapter of previous booklist data
         mAdapter.clear();
 
-        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // If there is a valid list of books, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (books != null && !books.isEmpty()) {
-            Log.i("LOG before addAll ","books is " + books);
             mAdapter.addAll(books);
-            Log.i("LOG after addAll ","books is " + books);
+
         }
     }
 
     @Override
     public void onLoaderReset(Loader<List<BookList>> loader) {
-
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
     }

@@ -8,11 +8,14 @@ import java.util.Date;
 
 public class BookList {
 
-    // authors names for a particular book
-    private String mAuthors;
 
     // title for a particular book
     private String mTitle;
+
+    // authors names for a particular book
+    private String mAuthors;
+
+
 
     // publisher for a particular book
     private String mPublisher;
@@ -20,7 +23,7 @@ public class BookList {
     // published date for a particular book
     private String mPublishedDate;
 
-    public BookList(String Authors, String Title, String Publisher, String PublishedDate) {
+    public BookList(String Title, String Authors, String Publisher, String PublishedDate) {
         mAuthors = Authors;
         mTitle = Title;
         mPublisher = Publisher;
