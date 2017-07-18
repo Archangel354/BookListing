@@ -15,9 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -134,6 +132,11 @@ public final class Utils {
      * about the first earthquake from the input booksJSON string.
      */
     private static List extractFeatureFromJson(String booksJSON) {
+
+        String authors = "";
+        String publisher = "";
+
+
         // If the JSON string is empty or null, then return early.
         if (TextUtils.isEmpty(booksJSON)) {
             return null;
@@ -142,12 +145,30 @@ public final class Utils {
             JSONObject baseJsonResponse = new JSONObject(booksJSON);
             JSONArray featureArray = baseJsonResponse.getJSONArray("items");
 
+            if (featureArray.length() == 0){
+                Log.i("LOG","Unable to find items");
+            }
+
+
             for (int i = 0;i < featureArray.length();i++){
                 JSONObject currentBook = featureArray.getJSONObject(i);
                 JSONObject properties = currentBook.getJSONObject("volumeInfo");
                 String title = properties.getString("title");
-                String authors = properties.getString("authors");
-                String publisher = properties.getString("publisher");
+
+                if (properties.has("authors")) {
+                    authors = properties.getString("authors");
+                }
+                else {
+                    authors = "No authors listed";
+                }
+
+                if (properties.has("publisher")) {
+                    publisher = properties.getString("publisher");
+                }
+                else {
+                    publisher = "No publisher listed";
+                }
+
                 String publishedDate = properties.getString("publishedDate");
 
                 BookList mBookList = new BookList(title, authors, publisher, publishedDate);
@@ -155,7 +176,7 @@ public final class Utils {
             }
 
         } catch (JSONException e) {
-            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
+            Log.e(LOG_TAG, "Problem parsing the mBookList JSON results", e);
         }
         return books;
     }
