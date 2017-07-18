@@ -133,8 +133,11 @@ public final class Utils {
      */
     private static List extractFeatureFromJson(String booksJSON) {
 
+
+
         String authors = "";
         String publisher = "";
+        JSONArray featureArray = null;
 
 
         // If the JSON string is empty or null, then return early.
@@ -143,11 +146,38 @@ public final class Utils {
         }
         try {
             JSONObject baseJsonResponse = new JSONObject(booksJSON);
-            JSONArray featureArray = baseJsonResponse.getJSONArray("items");
 
-            if (featureArray.length() == 0){
-                Log.i("LOG","Unable to find items");
+            // Checking if "items" is present
+            if (baseJsonResponse.has("items")) {
+             featureArray = baseJsonResponse.getJSONArray("items");
+           } else
+                {
+                    // Built placeholder JSON string in case "items" not found
+                    String placeholderJSON = "{\n" +
+                        " \"kind\": \"books#volumes\",\n" +
+                        " \"totalItems\": 2135,\n" +
+                        " \"items\": [\n" +
+                        "  {\n" +
+                        "   \"kind\": \"books#volume\",\n" +
+                        "   \"id\": \"9e9Kn9N8yP0C\",\n" +
+                        "   \"etag\": \"fyWDBegzDw0\",\n" +
+                        "   \"selfLink\": \"https://www.googleapis.com/books/v1/volumes/9e9Kn9N8yP0C\",\n" +
+                        "   \"volumeInfo\": {\n" +
+                        "    \"title\": \"No items found\",\n" +
+                        "    \"authors\": [\n" +
+                        "     \"No items found\"" +
+                        "    ],\n" +
+                        "    \"publisher\": \"\\\"No items found\\\"\",\n" +
+                        "    \"publishedDate\": \"No items found\"\n" +
+                        "   }\n" +
+                        "\n" +
+                        "  }\n" +
+                        " ]\n" +
+                        "}";
+                    baseJsonResponse = new JSONObject(placeholderJSON);
+                featureArray = baseJsonResponse.getJSONArray("items");
             }
+
 
 
             for (int i = 0;i < featureArray.length();i++){
